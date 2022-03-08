@@ -2,10 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import Country from './component/Country/Country';
+import Cart from './component/Cart/Cart';
 
 function App() {
 
-  const [countries ,setCountries] = useState([])
+  const [countries ,setCountries] = useState([]);
+  const [cart ,setCart] =useState([]);
 
   useEffect(() => {
 
@@ -18,6 +20,12 @@ function App() {
 
   },[])
  
+const hancleCountry = (country) => {
+  
+
+  const newcart =[...cart , country]
+  setCart(newcart)
+}
 
 
 
@@ -25,12 +33,13 @@ function App() {
     <div className="App">
 
       <h1> total countries : {countries.length}</h1>
+      <h2> country added: {cart.length}</h2>
 
-     
+      <Cart cart={cart}></Cart>
       <ul>
 
        {
-         countries.map(country => <Country name={country.name} population={country.population}  capital={country.capital}flag={country.flags.png} key={country.alpha3Code}></Country>)
+         countries.map(country => <Country country={country} handleCountry={hancleCountry} key={country.alpha3Code}></Country>)
        }
 
       </ul>
